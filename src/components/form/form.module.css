@@ -1,0 +1,138 @@
+form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 3rem 2rem;
+  border-radius: 10px;
+  background-color: #b0b0b093;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.358);
+  border: 1px solid rgb(254, 169, 169);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container label {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  font-weight: 300;
+}
+
+.container input,
+.container select,
+.container input[type='time'] {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-align: center;
+  color: #1f1f1f;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  width: 25rem;
+  border: 1px solid rgb(254, 169, 169);
+}
+
+.container input:focus,
+.container select:focus,
+.container input[type='time']:focus {
+  outline: 2px solid rgb(254, 169, 169);
+}
+.container p {
+  color: rgb(254, 169, 169);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.btn {
+  border: 1px solid rgb(254, 169, 169);
+  color: #fff;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 300;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+.btn:hover {
+  background-color: rgb(254, 169, 169);
+  border: 1px solid #fff;
+}
+.btn:disabled {
+  color: #4f4f4f;
+  border: 1px solid #4f4f4f;
+  pointer-events: none;
+}
+
+/* Wrapper around the hour, minute, second, and am/pm fields as well as 
+  the up and down buttons and the 'X' button */
+.container input[type='time']::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* The space between the fields - between hour and minute, the minute and 
+  second, second and am/pm */
+.container input[type='time']::-webkit-datetime-edit-text {
+  padding: 2rem 0.5rem;
+}
+
+/* The naming convention for the hour, minute, second, and am/pm field is
+  `-webkit-datetime-edit-{field}-field` */
+
+/* Hour */
+.container input[type='time']::-webkit-datetime-edit-hour-field {
+  background-color: #fff;
+  border-radius: 15%;
+  padding: 19px 13px;
+  border: 1px solid rgb(254, 169, 169);
+}
+
+/* Minute */
+.container input[type='time']::-webkit-datetime-edit-minute-field {
+  background-color: #fff;
+  border-radius: 15%;
+  padding: 19px 13px;
+  border: 1px solid rgb(254, 169, 169);
+}
+
+/* Second */
+.container input[type='time']::-webkit-datetime-edit-second-field {
+  background-color: #fff;
+  border-radius: 15%;
+  padding: 19px 13px;
+  border: 1px solid rgb(254, 169, 169);
+}
+
+/* AM/PM */
+.container input[type='time']::-webkit-datetime-edit-ampm-field {
+  border-radius: 15%;
+  color: #fff;
+  padding: 19px 13px;
+}
+
+/* 'X' button for resetting/clearing time */
+.container input[type='time']::-webkit-clear-button {
+  display: none;
+}
+/* hide clock*/
+input[type='time']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  form {
+    width: 85%;
+  }
+}
