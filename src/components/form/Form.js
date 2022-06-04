@@ -8,10 +8,11 @@ import classes from './form.module.css';
 
 let formIsValid = false;
 let DATA = {};
+
 const Form = ({ sendData, sending }) => {
   const [type, setType] = useState('pizza');
 
-  //******* ---------- create whole logic for input fileds -------*********
+  //******* ---------- create basic input fileds -------*********
   const {
     value: enteredDishName,
     isValid: enteredDishNameIsValid,
@@ -68,14 +69,13 @@ const Form = ({ sendData, sending }) => {
     inputBlurHandler: breadBlurHandler,
     reset: resetBreadInput,
   } = useInput((value) => value.trim() !== '');
-  // ********** ------- change type food ----------
 
+  // ********** ------- change type food ----------
   const changeTypeFoodHandler = (type) => {
     setType(type);
   };
 
   //****** ----------- whole form is valid or not --------------
-
   if (
     enteredDishNameIsValid &&
     enteredPreparationTimeIsValid &&
@@ -88,11 +88,12 @@ const Form = ({ sendData, sending }) => {
   // ***** ---------- submitForm  ---------
   const sendFormHandler = async (e) => {
     e.preventDefault();
-
+    const fixedEnteredPreparationTime =
+      enteredPreparationTime.length === 5 ? enteredPreparationTime + ':00' : enteredPreparationTime;
     if (type === 'pizza')
       DATA = {
         name: enteredDishName,
-        preparation_time: enteredPreparationTime,
+        preparation_time: fixedEnteredPreparationTime,
         type: type,
         no_of_slices: Number(enteredSlices),
         diameter: Number(enteredDiameter),
@@ -101,7 +102,7 @@ const Form = ({ sendData, sending }) => {
     if (type === 'soup')
       DATA = {
         name: enteredDishName,
-        preparation_time: enteredPreparationTime,
+        preparation_time: fixedEnteredPreparationTime,
         type: type,
         spiciness_scale: Number(enteredSpicinessScale),
       };
@@ -109,17 +110,17 @@ const Form = ({ sendData, sending }) => {
     if (type === 'sandwich')
       DATA = {
         name: enteredDishName,
-        preparation_time: enteredPreparationTime,
+        preparation_time: fixedEnteredPreparationTime,
         type: type,
         slices_of_bread: Number(enteredBread),
       };
 
-    ///****** try send */
+    ///****** try send DATA */
     sendData(DATA);
-    //reset DATA
+
+    // reset fields and DATA
     DATA = {};
 
-    // reset field
     resetPreparationTimeInput();
     resetDishNameInput();
 
@@ -152,18 +153,18 @@ const Form = ({ sendData, sending }) => {
         <input
           id="preparationTime"
           type="time"
-          step="1"
+          step={1}
           value={enteredPreparationTime ? enteredPreparationTime : '00:00:00'}
           onBlur={preparationTimeBlurHandler}
           onChange={preparationTimeChangedHandler}
         />
         {preparationTimeInputHasError && <p>Error --- filed cant't be empty</p>}
       </div>
+
       {/*--------- select food ---------  */}
       <SelectedTypeFood changeTypeFood={changeTypeFoodHandler} type={type} />
 
       {/*---------- pizza -------------- */}
-
       {type === 'pizza' && enteredDishNameIsValid && enteredPreparationTimeIsValid && (
         <>
           <div className={classes.container}>
@@ -173,6 +174,7 @@ const Form = ({ sendData, sending }) => {
               type="number"
               min={1}
               step={1}
+              placeholder="minimum value: (1)"
               value={enteredSlices}
               onBlur={slicesBlurHandler}
               onChange={slicesChangedHandler}
@@ -184,6 +186,7 @@ const Form = ({ sendData, sending }) => {
             <input
               id="slices"
               type="number"
+              placeholder="minimum value: (10)"
               min={10}
               step={0.1}
               value={enteredDiameter}
@@ -205,6 +208,7 @@ const Form = ({ sendData, sending }) => {
             min={0}
             max={10}
             step={1}
+            placeholder="value between: (1-10)"
             value={enteredSpicinessScale}
             onBlur={spicinessScaleBlurHandler}
             onChange={spicinessScaleChangedHandler}
@@ -220,7 +224,8 @@ const Form = ({ sendData, sending }) => {
           <input
             id="bread"
             type="number"
-            min={0}
+            placeholder="minimum value: (1)"
+            min={1}
             step={1}
             value={enteredBread}
             onBlur={breadBlurHandler}
